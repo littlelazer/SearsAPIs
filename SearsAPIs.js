@@ -17,9 +17,9 @@ function SearsAPI ( initObj ) {
 		
 	},
 
-	/**********************************/
+	/*****************************/
 	/* Store & Product Functions */
-	/**********************************/
+	/*****************************/
 	
 	// Product Search API
 	this.productSearch = function ( prodArgs ) {
@@ -29,21 +29,26 @@ function SearsAPI ( initObj ) {
 	// Store Locator API
 	this.storeLocator = function ( storeArgs ) {
 		var serviceURL = apiURL + 'StoreLocator',
-				defaults = {
-					
+				options = {
+					cache = false;
+					store : 'Sears',
+					contentType : 'json',
+					dataType : 'json'
 				};
-				
-		$.ajax({
-			cache: false,
+		
+		$.extend(options, storeArgs);
+
+		return $.ajax({
+			cache: storeArgs.cache,
 			url:		serviceURL,
-			dataType:	'json',
+			dataType:	storeArgs.dataType,
 			data : {
-				store : 'Sears',
+				store : storeArgs.store,
 				searchType : storeArgs.searchType,
 				sortFlag : storeArgs.sortFlag,
 				zipCode : storeArgs.zipCode,
 				apikey : storeArgs.apiKey,
-				contentType : 'json'
+				contentType : storeArgs.contentType
 			}
 		});
 	};
